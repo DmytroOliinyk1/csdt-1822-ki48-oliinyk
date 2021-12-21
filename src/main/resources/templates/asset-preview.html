@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Книга </h1>
+        </div>
+    </div>
+
+    <div>
+        <a th:href="@{/welcome}">
+            <p>Головна</p>
+        </a>
+    </div>
+    <img th:src="${asset.getThumbnail()}"
+         width="500" height="500" alt="asset thumbnail">
+
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+                </span>
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr th:each="field, itemStat : ${asset.metadata.fields}">
+
+                        <div th:if="${field.isVisibleOnUi()}">
+                            <td><div class="outside-tag">
+                                <th:block th:utext="${field.getTitle()}"></th:block>
+                            </div></td>
+
+                            <td><div class="outside-tag">
+                                <th:block th:utext="${field.getDisplayValue()}"></th:block>
+                            </div></td>
+                        </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <div th:if="${authorized}">
+                <div th:if="${asset.isSubscribed()}">
+                    <div>
+                        <a th:href="@{'/asset/unsubscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?id=' + ${asset.getId()}}">Видалити
+                            зі збережених</a>
+                    </div>
+                </div>
+                <div th:unless="${asset.isSubscribed()}">
+                    <div>
+                        <a th:href="@{'/asset/subscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?id=' + ${asset.getId()}}">Зберегти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a th:href="@{'/asset/search/authors?id=' + ${asset.getId()}}">Перейти до авторів</a>
+    </div>
+    <div>
+        <a th:href="@{'/asset/download?id=' + ${asset.getId()}}">Завантажити</a>
+    </div>
+</div>
+</body>
+</html>

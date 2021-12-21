@@ -1,0 +1,6 @@
+--create database vl;
+--
+--use mysql;
+--CREATE USER 'vl'@'%' IDENTIFIED BY 'root';
+--GRANT ALL PRIVILEGES ON vl . * TO 'vl'@'%';
+--flush privileges;

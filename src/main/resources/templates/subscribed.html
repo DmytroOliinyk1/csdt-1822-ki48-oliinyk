@@ -1,0 +1,98 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Збережені</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Збережені</h1>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div align="right">
+                <a th:href="@{/welcome}">
+                    <p>головна</p>
+                </a>
+            </div>
+
+            <fieldset>
+                </span>
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr th:each="asset, itemStat : ${result.assets}">
+                        <a th:href="@{'/asset/preview?id=' + ${asset.getId()}}">
+                            <img th:src="${asset.getThumbnail()}"
+                                 width="100" height="100" alt="asset thumbnail">
+                        </a>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <fieldset>
+                                    </span>
+                                    <table class="table">
+                                        <thead>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="field, itemStat : ${asset.metadata.fields}">
+                                            <div th:if="${field.isVisibleOnUi}">
+                                                <td>
+                                                    <div class="outside-tag">
+                                                        <th:block th:utext="${field.getTitle()}"></th:block>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="outside-tag">
+                                                        <th:block th:utext="${field.getDisplayValue()}"></th:block>
+                                                    </div>
+                                                </td>
+                                            </div>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a th:href="@{'/asset/download?id=' + ${asset.getId()}}">Завантажити</a>
+                        </div>
+
+                        <div th:if="${asset.isSubscribed()}">
+                            <div>
+                                <a th:href="@{'/asset/unsubscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?page=' + ${result.pagination.getPage()}}">Видалити
+                                    зі збережених</a>
+                            </div>
+                        </div>
+                        <div th:unless="${asset.isSubscribed()}">
+                            <div>
+                                <a th:href="@{'/asset/subscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?page=' + ${result.pagination.getPage()}}">Зберегти</a>
+                            </div>
+                        </div>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+
+    <div th:unless="${result.pagination.isFirstPage() || result.pagination.hasElements()}">
+        <a th:href="@{'/asset/search/all?page=' + ${result.pagination.getPrev()} + '&searchId=' + ${result.pagination.searchId}}">
+            Попередня сторінка
+        </a>
+    </div>
+    <div align="right" th:unless="${result.pagination.isLastPage() || result.pagination.hasElements()}">
+        <a th:href="@{'/asset/search/all?page=' + ${result.pagination.getNext()} + '&searchId=' + ${result.pagination.searchId}}">
+            Наступна сторінка
+        </a>
+    </div>
+</div>
+</body>
+</html>

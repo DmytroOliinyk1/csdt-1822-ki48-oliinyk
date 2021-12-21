@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Автор</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Автор </h1>
+        </div>
+    </div>
+
+    <img th:src="${asset.getThumbnail()}"
+         width="500" height="500" alt="портрет автора">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div align="right">
+                <a th:href="@{/welcome}">
+                    <p>Головна</p>
+                </a>
+            </div>
+
+            <fieldset>
+                </span>
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr th:each="field, itemStat : ${asset.metadata.fields}">
+                        <td>
+                            <div class="outside-tag">
+                                <th:block th:utext="${field.getTitle()}"></th:block>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div th:unless="${field.isHyperLink()}" class="outside-tag">
+                                <th:block th:utext="${field.getDisplayValue()}"></th:block>
+                            </div>
+                            <div th:if="${field.isHyperLink()}" class="outside-tag">
+                                <a th:href="${field.getDisplayValue()}">wiki</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>
+</body>
+</html>
