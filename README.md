@@ -1,1 +1,7 @@
-# csdt-1822-ki48-oliinyk
+Student: Dmytro Oliinyk
+
+Group: CE-48
+
+Student number: 11
+
+Subject: CSDT
