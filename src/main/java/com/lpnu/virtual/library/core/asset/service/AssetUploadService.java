@@ -11,7 +11,6 @@ import com.lpnu.virtual.library.core.asset.service.upload.ValidationSyndication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Files;
 import java.util.stream.Stream;
 
 @Service
@@ -40,7 +39,7 @@ public class AssetUploadService {
             return "Failed of syndication: " + String.join(" | ", context.getErrors());
         }
 
-        return "Success syndication";
+        return "Файл успішно завантажений";
     }
 
     private void deleteFile(AssetUploadContext context) {
@@ -48,8 +47,7 @@ public class AssetUploadService {
     }
 
     private AssetSyndicationHandler buildHandlerChain(AssetSyndicationHandler identity, AssetSyndicationHandler... chain) {
-        Stream.of(chain)
-                .reduce(identity, AssetSyndicationHandler::addNext);
+        Stream.of(chain).reduce(identity, AssetSyndicationHandler::addNext);
         return identity;
     }
 }

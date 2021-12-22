@@ -73,7 +73,7 @@ public class AssetSearchService {
         assetIds = cacheService.getFromSearchIds(pagination.getSearchId());
         pagination.setSize(assetIds.size());
 
-        return new PagedResult(PaginationUtils.getAssetIdsOnPage(assetIds, pagination, Boolean.TRUE)
+        return new PagedResult(PaginationUtils.getAssetIdsOnPage(assetIds, pagination)
                 .stream()
                 .map(id -> assetPreviewService.getAssetDetails(id, code != null ? code :PresetCode.PREVIEW_PAGE))
                 .collect(Collectors.toList()), pagination);

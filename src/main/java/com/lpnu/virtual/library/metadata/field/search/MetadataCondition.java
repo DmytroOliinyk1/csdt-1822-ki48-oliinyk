@@ -1,7 +1,10 @@
 package com.lpnu.virtual.library.metadata.field.search;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class MetadataCondition {
     private String fieldId;
     private String value;
@@ -23,38 +26,6 @@ public class MetadataCondition {
 
     public MetadataCondition(String fieldId, Operator operator) {
         this.fieldId = fieldId;
-        this.operator = operator;
-    }
-
-    public String getFieldId() {
-        return fieldId;
-    }
-
-    public void setFieldId(String fieldId) {
-        this.fieldId = fieldId;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public List<String> getValues() {
-        return values;
-    }
-
-    public void setValues(List<String> values) {
-        this.values = values;
-    }
-
-    public Operator getOperator() {
-        return operator;
-    }
-
-    public void setOperator(Operator operator) {
         this.operator = operator;
     }
 }

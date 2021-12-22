@@ -5,26 +5,18 @@ import com.lpnu.virtual.library.metadata.field.db.FieldManagerDao;
 import com.lpnu.virtual.library.metadata.field.model.Field;
 import com.lpnu.virtual.library.metadata.field.model.FieldType;
 import com.lpnu.virtual.library.metadata.field.repository.FieldRepository;
-import com.lpnu.virtual.library.metadata.field.util.DaoUtils;
 import com.lpnu.virtual.library.metadata.field.util.FieldMapper;
 import com.lpnu.virtual.library.metadata.field.util.FieldUtils;
-import com.lpnu.virtual.library.metadata.field.util.SqlUtils;
 import com.lpnu.virtual.library.util.ExecutionTypeCode;
 import com.lpnu.virtual.library.util.ValuesUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 @Service
@@ -106,7 +98,7 @@ public class FieldManagerService {
     public Boolean saveMetadata(Long assetId, String fieldId, String value) {
         Field field = getFieldById(fieldId);
         List<String> values;
-        if (value == null || !StringUtils.isNotBlank(value)) {
+        if (!StringUtils.isNotBlank(value)) {
             values = Collections.emptyList();
         } else if (FieldType.TABULAR.equals(field.getType())) {
             values = value.contains(",") ? Arrays.asList(value.split(",")) : Collections.singletonList(value);

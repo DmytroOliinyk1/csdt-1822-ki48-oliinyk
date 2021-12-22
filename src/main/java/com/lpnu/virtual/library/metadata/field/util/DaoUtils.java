@@ -1,8 +1,6 @@
 package com.lpnu.virtual.library.metadata.field.util;
 
-import com.lpnu.virtual.library.metadata.field.db.FieldManagerDao;
 import lombok.experimental.UtilityClass;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

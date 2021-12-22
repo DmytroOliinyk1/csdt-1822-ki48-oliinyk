@@ -1,7 +1,6 @@
 package com.lpnu.virtual.library.metadata.field.util;
 
 import com.lpnu.virtual.library.metadata.field.db.Sqls;
-import com.lpnu.virtual.library.metadata.field.model.Field;
 import com.lpnu.virtual.library.metadata.field.model.FieldType;
 import lombok.experimental.UtilityClass;
 

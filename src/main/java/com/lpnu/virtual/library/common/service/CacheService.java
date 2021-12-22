@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class CacheService {
-    private Cache<String, List<Long>> searchIds = CacheBuilder.newBuilder()
+    private final Cache<String, List<Long>> searchIds = CacheBuilder.newBuilder()
             .weakValues()
             .expireAfterWrite(10, TimeUnit.MINUTES)
             .maximumSize(512)

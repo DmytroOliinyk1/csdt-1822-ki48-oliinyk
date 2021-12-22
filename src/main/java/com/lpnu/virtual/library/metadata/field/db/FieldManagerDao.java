@@ -7,7 +7,6 @@ import com.lpnu.virtual.library.util.ValuesUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -15,9 +14,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-
-import static com.lpnu.virtual.library.metadata.field.db.Sqls.INSERT_METADATA_VALUE;
 
 @Repository
 @RequiredArgsConstructor
