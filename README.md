@@ -84,6 +84,9 @@ Field id - Table name - Field type
 
 Go to localhost:8080/admin/field/config to make sure fields are created
 
+###Database:
+MySQL 8.0.27
+
 ### Tags:
 1.csdt-1822-ki48-oliinyk_v2p1_WW21513
  - user creation pages
