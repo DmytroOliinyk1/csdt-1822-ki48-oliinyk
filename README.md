@@ -126,3 +126,8 @@ Author creation:
 
 Fill in all fields, choose thumbnail, click `Зберегти`. Access: admin user
 
+User actions:
+
+`Зареєструватись` - create user account
+
+`Увійти` - sign-in

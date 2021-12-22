@@ -1,7 +1,6 @@
 CREATE TABLE user (
   user_id INT AUTO_INCREMENT  NOT NULL ,
   login VARCHAR(50) UNIQUE,
-  email VARCHAR(50) UNIQUE,
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   password VARCHAR(100) NOT NULL,
@@ -34,8 +33,8 @@ values
 insert into user
 (login, email, first_name, last_name, password)
 values
-('admin', 'admin@test.com','Admin', 'Admin', '$2a$12$v7Sk5Hbf1jxA2tw.3hOahONs0DEzYOo4bqAYdIJJMILAZNt.VQk0q'),
-('user', 'user@test.com', 'User', 'User', '$2a$12$v7Sk5Hbf1jxA2tw.3hOahONs0DEzYOo4bqAYdIJJMILAZNt.VQk0q');
+('admin','Admin', 'Admin', '$2a$12$v7Sk5Hbf1jxA2tw.3hOahONs0DEzYOo4bqAYdIJJMILAZNt.VQk0q'),
+('user', 'User', 'User', '$2a$12$v7Sk5Hbf1jxA2tw.3hOahONs0DEzYOo4bqAYdIJJMILAZNt.VQk0q');
 
 insert into user_role
 (user_id, role)
