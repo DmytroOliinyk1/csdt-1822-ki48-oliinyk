@@ -1,0 +1,251 @@
+[
+  {
+    "code": "BOOK_UPLOAD",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "Назва"
+      },
+      {
+        "id": "FIELD.AUTHORS",
+        "title": "Автори (ПІБ)"
+      },
+      {
+        "id": "FIELD.PSEUDONYM",
+        "title": "Псевдоніми авторів через комі (ПІБ, якщо немає псевдоніму)"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Опис"
+      },
+      {
+        "id": "FIELD.GENRE",
+        "title": "Жанри (через кому)"
+      },
+      {
+        "id": "FIELD.COUNTRY",
+        "title": "Країна, де був написаний твір"
+      },
+      {
+        "id": "FIELD.LANGUAGE",
+        "title": "Мова написання"
+      }
+    ]
+  },
+  {
+    "code": "AUTHOR_UPLOAD",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "ПІБ"
+      },
+      {
+        "id": "FIELD.PSEUDONYM",
+        "title": "Псевдоніми автора (ПІБ, якщо немає псевдоніму)"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Біографія"
+      },
+      {
+        "id": "FIELD.GENRE",
+        "title": "Жанри написання (через кому)"
+      },
+      {
+        "id": "FIELD.COUNTRY",
+        "title": "Країна"
+      },
+      {
+        "id": "FIELD.LANGUAGE",
+        "title": "Мова"
+      },
+      {
+        "id": "FIELD.WIKI.URL",
+        "title": "Сторінка у вікіпедії"
+      }
+    ]
+  },
+  {
+    "code": "PREVIEW",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "Назва"
+      },
+      {
+        "id": "FIELD.AUTHORS",
+        "title": "Автори"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Опис"
+      },
+      {
+        "id": "FIELD.GENRE",
+        "title": "Жанр"
+      },
+      {
+        "id": "FIELD.COUNTRY",
+        "title": "Країна написання"
+      },
+      {
+        "id": "FIELD.LANGUAGE",
+        "title": "Мова написання"
+      },
+      {
+        "id": "FIELD.SUBSCRIPTION",
+        "visible": "false"
+      },
+      {
+        "id": "FIELD.UPLOADER",
+        "title": "Аплоадер файлу",
+        "authority": [
+          "ADMIN"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "PREVIEW_AUTHOR",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "ПІБ"
+      },
+      {
+        "id": "FIELD.PSEUDONYM",
+        "title": "Псевдоніми автора"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Біографія"
+      },
+      {
+        "id": "FIELD.GENRE",
+        "title": "Жанри написання (через кому)"
+      },
+      {
+        "id": "FIELD.COUNTRY",
+        "title": "Країна походження"
+      },
+      {
+        "id": "FIELD.LANGUAGE",
+        "title": "Мова"
+      },
+      {
+        "id": "FIELD.WIKI.URL",
+        "title": "Сторінка у вікіпедії",
+        "hyperLink": "true"
+      },
+      {
+        "id": "FIELD.UPLOADER",
+        "title": "Аплоадер файлу",
+        "authority": [
+          "ADMIN"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "PREVIEW_AUTHOR_PAGE",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "ПІБ"
+      },
+      {
+        "id": "FIELD.PSEUDONYM",
+        "title": "Псевдоніми автора"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Біографія"
+      }
+    ]
+  },
+  {
+    "code": "PREVIEW_PAGE",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "Назва"
+      },
+      {
+        "id": "FIELD.AUTHORS",
+        "title": "Автори"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Опис"
+      },
+      {
+        "id": "FIELD.SUBSCRIPTION",
+        "visible": "false"
+      },
+      {
+        "id": "FIELD.UPLOADER",
+        "title": "Аплоадер файлу",
+        "authority": [
+          "ADMIN"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "FILTERS",
+    "fields": [
+      {
+        "id": "FIELD.NAME",
+        "title": "Назва"
+      },
+      {
+        "id": "FIELD.AUTHORS",
+        "title": "Автор"
+      },
+      {
+        "id": "FIELD.DESCRIPTION",
+        "title": "Опис"
+      },
+      {
+        "id": "FIELD.GENRE",
+        "title": "Жанр"
+      },
+      {
+        "id": "FIELD.COUNTRY",
+        "title": "Країна написання"
+      },
+      {
+        "id": "FIELD.LANGUAGE",
+        "title": "Мова написання"
+      },
+      {
+        "id": "FIELD.UPLOADER",
+        "title": "Аплоадер файлу",
+        "authority": [
+          "ADMIN"
+        ]
+      }
+    ]
+  },
+  {
+    "code": "FEED_FILTERS",
+    "fields": [
+      {
+        "id": "FIELD.AUTHORS",
+        "title": "Автор"
+      },
+      {
+        "id": "FIELD.GENRE",
+        "title": "Жанр"
+      },
+      {
+        "id": "FIELD.COUNTRY",
+        "title": "Країна написання"
+      },
+      {
+        "id": "FIELD.LANGUAGE",
+        "title": "Мова написання"
+      }
+    ]
+  }
+]

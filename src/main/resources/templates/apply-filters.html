@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Books</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1> Фільтри </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div align="right">
+        <a th:href="@{/welcome}">
+          <p>Головна</p>
+        </a>
+      </div>
+
+      <form action="#" class="form-horizontal"
+            th:action="@{/asset/search/apply/filters}"
+            th:object="${metadata}"
+            method="post">
+        <fieldset>
+					<span class="pull-right">
+						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Пошук">
+						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Очистити"/>
+					</span>
+          <table class="table">
+            <thead>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="field, itemStat : ${metadata.fields}">
+              <td><input hidden th:name="|fields[${itemStat.index}].fieldId|" th:value="${field.getFieldId()}"/>
+              </td>
+              <td><input th:name="|fields[${itemStat.index}].title|" th:value="${field.getTitle()}"
+                         readonly
+              /></td>
+              <td><input th:name="|fields[${itemStat.index}].displayValue|"
+                         th:value="${field.getDisplayValue()}"
+                         /></td>
+            </tr>
+            </tbody>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

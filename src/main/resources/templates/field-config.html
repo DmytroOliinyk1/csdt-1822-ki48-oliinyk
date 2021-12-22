@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Field config</title>
+</head>
+<body>
+<div>
+    <a th:href="@{/welcome}">
+        <p>Головна</p>
+    </a>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th> Field Id</th>
+        <th> Table Name</th>
+        <th> Field Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${config.empty}">
+        <td colspan="2"> No Fields Yet</td>
+    </tr>
+    <tr th:each="field : ${config}">
+        <td><span th:text="${field.fieldId}"> Field Id </span></td>
+        <td><span th:text="${field.tableName}"> Table Name </span></td>
+        <td><span th:text="${field.type}"> Field Type </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

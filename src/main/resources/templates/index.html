@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Головна</title>
+</head>
+    <body>
+
+        <div>
+        <p th:utext="${msg}"></p>
+        </div>
+
+        <div th:unless="${isAuthorized}">
+            <a th:href="@{/login}">
+                <p>Увійти</p>
+            </a>
+        </div>
+
+        <div th:if="${isAuthorized}">
+            <a th:href="@{/asset/upload}">
+                <p>Створити книгу</p>
+            </a>
+        </div>
+
+        <div th:if="${isAdmin}">
+            <a th:href="@{/asset/upload?code=AUTHOR_UPLOAD}">
+                <p>Створити автора</p>
+            </a>
+        </div>
+
+        <div>
+            <a th:href="@{/asset/search/all}">
+                <p>Всі книги</p>
+            </a>
+        </div>
+
+        <div th:if="${isAuthorized}">
+            <a th:href="@{/asset/search/my}">
+                <p>Мої книги</p>
+            </a>
+        </div>
+
+        <div th:if="${isAuthorized}">
+            <a th:href="@{/asset/search/subscribed}">
+                <p>Збережені</p>
+            </a>
+        </div>
+
+        <div>
+            <a th:href="@{/asset/search/apply/filters}">
+                <p>Шукати книги</p>
+            </a>
+        </div>
+
+        <div th:if="${isAuthorized}">
+            <a th:href="@{/asset/feed}">
+                <p>Рекомендовані</p>
+            </a>
+        </div>
+</body>
+</html>

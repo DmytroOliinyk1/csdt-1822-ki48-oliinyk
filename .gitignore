@@ -1,0 +1,21 @@
+# Eclipse
+.classpath
+.project
+.settings/
+.springBeans
+.factorypath
+.launch
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+*/generated-src
+/mvn.clean.install.log
+
+uploads/
+thumbnails/

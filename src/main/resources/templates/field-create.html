@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Create field</title>
+</head>
+<body>
+    <div>
+        <h1>Create field</h1>
+        <div>
+            <a th:href="@{/welcome}">
+                <p>Головна</p>
+            </a>
+        </div>
+        <form action="#" th:action="@{/admin/field/create}" th:object="${dto}" method="post">
+            <p>Id: <input type="text" th:field="*{fieldId}" /></p>
+            <p>Table name: <input type="text" th:field="*{tableName}" /></p>
+            <p>Type:
+                <select th:field="*{type}">
+                    <option value="LINEAR">linear</option>
+                    <option value="TABULAR">tabular</option>
+                </select>
+            </p>
+            <p>Id: <input type="number" th:field="*{size}" min="10" max="1024"/></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
+    </div>
+</body>
+</html>

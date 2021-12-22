@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Створити автора</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1> Створити автора </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div align="right">
+                <a th:href="@{/welcome}">
+                    <p>Головна</p>
+                </a>
+            </div>
+
+            <form action="#" class="form-horizontal"
+                  th:action="@{/asset/upload?code=AUTHOR_UPLOAD}"
+                  th:object="${metadata}"
+                  method="post"
+                  enctype="multipart/form-data">
+                <fieldset>
+					<span class="pull-right">
+						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Зберегти">
+						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Очистити"/>
+					</span>
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="field, itemStat : ${metadata.fields}">
+                            <td><input hidden th:name="|fields[${itemStat.index}].fieldId|" th:value="${field.getFieldId()}"/>
+                            </td>
+                            <td><input th:name="|fields[${itemStat.index}].title|" th:value="${field.getTitle()}"
+                                       readonly
+                            /></td>
+                            <td><input th:name="|fields[${itemStat.index}].displayValue|"
+                                       th:value="${field.getDisplayValue()}"
+                                       required/></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <p>Портрет/фото: <input type="file" name="thumbnail" accept="image/jpg" /></p>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
