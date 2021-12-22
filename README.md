@@ -37,7 +37,7 @@ csdt-1822-ki48-oliinyk/src/main/resources/db-scripts/V1_0__initial.sql
 
 Than run command from cmd:
 
-    _mvn flyway:migrate -Dflyway.configFiles=flyway.conf_
+    mvn flyway:migrate -Dflyway.configFiles=flyway.conf
 
 ### Running guide
 
@@ -47,12 +47,15 @@ Than run command from cmd:
 
    Build and run server
 
-       mvn clean package
-    
+       mvn clean package -DskipTests 
+
+       If you want also to execute tests you can:
+       remove flag -DskipTests or
+       run mvn test
     
        mvn spring-boot:run
 
-*_Note_: after first start of app, for correct work, sign-in as 'admin'
+*Note: after first start of app, for correct work, sign-in as 'admin'
 and create some fields from localhost:8080/admin/field/create:
 
 Field id - Table name - Field type

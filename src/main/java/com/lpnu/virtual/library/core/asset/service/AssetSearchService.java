@@ -1,18 +1,12 @@
 package com.lpnu.virtual.library.core.asset.service;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
 import com.lpnu.virtual.library.common.model.Pagination;
 import com.lpnu.virtual.library.common.service.CacheService;
-import com.lpnu.virtual.library.core.asset.model.AssetDto;
-import com.lpnu.virtual.library.core.asset.model.AssetMetadataDto;
 import com.lpnu.virtual.library.core.asset.model.PagedResult;
 import com.lpnu.virtual.library.core.asset.model.SearchMode;
 import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.preset.model.PresetCode;
 import com.lpnu.virtual.library.core.user.util.UserUtils;
-import com.lpnu.virtual.library.metadata.field.model.Field;
 import com.lpnu.virtual.library.metadata.field.model.FieldDto;
 import com.lpnu.virtual.library.metadata.field.model.Fields;
 import com.lpnu.virtual.library.metadata.field.search.MetadataSearchManager;
@@ -23,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
