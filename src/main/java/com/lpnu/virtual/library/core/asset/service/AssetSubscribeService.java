@@ -15,14 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 public class AssetSubscribeService {
     private final FieldManagerService fieldManagerService;
 
-    public void subscribe(Long id) {
+    public Boolean subscribe(Long id) {
         if (!isSubscribed(id)) {
-            fieldManagerService.saveMetadata(id, Fields.SUBSCRIBER, UserUtils.getUserLogin());
+            return fieldManagerService.saveMetadata(id, Fields.SUBSCRIBER, UserUtils.getUserLogin());
         }
+        return Boolean.FALSE;
     }
 
-    public void unsubscribe(Long id) {
-        fieldManagerService.deleteMetadataValue(id, Fields.SUBSCRIBER, UserUtils.getUserLogin());
+    public Boolean unsubscribe(Long id) {
+        return fieldManagerService.deleteMetadataValue(id, Fields.SUBSCRIBER, UserUtils.getUserLogin());
     }
 
     public Boolean isSubscribed(Long id) {

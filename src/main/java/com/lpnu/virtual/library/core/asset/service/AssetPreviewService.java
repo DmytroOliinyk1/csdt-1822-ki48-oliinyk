@@ -1,13 +1,9 @@
 package com.lpnu.virtual.library.core.asset.service;
 
-import com.lpnu.virtual.library.core.asset.model.Asset;
 import com.lpnu.virtual.library.core.asset.model.AssetDto;
 import com.lpnu.virtual.library.core.asset.model.AssetMetadataDto;
 import com.lpnu.virtual.library.core.asset.thumbnail.service.ThumbnailService;
-import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.preset.model.PresetCode;
-import com.lpnu.virtual.library.metadata.field.model.Fields;
-import com.lpnu.virtual.library.metadata.field.model.Values;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +11,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AssetPreviewService {
 
-    private final AssetService assetService;
     private final AssetMetadataService assetMetadataService;
     private final ThumbnailService thumbnailService;
 

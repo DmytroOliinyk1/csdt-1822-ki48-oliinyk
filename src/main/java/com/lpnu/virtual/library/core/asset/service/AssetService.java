@@ -21,8 +21,4 @@ public class AssetService {
     public Asset save(Asset asset) {
         return repo.save(asset);
     }
-
-    public Asset get(Long id) {
-        return repo.getById(id);
-    }
 }

@@ -48,7 +48,8 @@ public class AssetUploadService {
     }
 
     private AssetSyndicationHandler buildHandlerChain(AssetSyndicationHandler identity, AssetSyndicationHandler... chain) {
-        Stream.of(chain).reduce(identity, AssetSyndicationHandler::addNext);
+        Stream.of(chain)
+                .reduce(identity, AssetSyndicationHandler::addNext);
         return identity;
     }
 }
