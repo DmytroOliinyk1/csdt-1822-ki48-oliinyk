@@ -84,12 +84,19 @@ Field id - Table name - Field type
 
 Go to localhost:8080/admin/field/config to make sure fields are created
 
+###Database:
+MySQL 8.0.27
+schema - vl
+
 ### Tags:
 1.csdt-1822-ki48-oliinyk_v2p1_WW21513
  - user creation pages
 
 2.csdt-1822-ki48-oliinyk_v2p2_WW21513
  - improvements and removing of deprecated entries
+
+3.csdt-1822-ki48-oliinyk_v2p3_WW21513
+- database description
 ### Application guide
 
 Main page:
