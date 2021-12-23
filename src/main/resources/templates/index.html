@@ -15,6 +15,11 @@
                 <p>Увійти</p>
             </a>
         </div>
+        <div th:unless="${isAuthorized}">
+            <a th:href="@{/user/create}">
+                <p>Зареєструватись</p>
+            </a>
+        </div>
 
         <div th:if="${isAuthorized}">
             <a th:href="@{/asset/upload}">

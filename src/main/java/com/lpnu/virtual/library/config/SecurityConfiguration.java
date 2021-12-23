@@ -34,6 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/asset/search/authors").permitAll()
                 .antMatchers("/asset/preview**").permitAll()
                 .antMatchers("/asset/download**").permitAll()
+                .antMatchers("/user/create**").permitAll()
                 .antMatchers("/welcome").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
