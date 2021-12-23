@@ -10,7 +10,7 @@ public enum Operator {
     WHERE("where"),
     AND("and"),
     OR("or");
-    private String sql;
+    private final String sql;
 
     Operator(String sql) {
         this.sql = sql;

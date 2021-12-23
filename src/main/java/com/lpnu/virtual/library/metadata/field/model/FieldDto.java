@@ -1,6 +1,5 @@
 package com.lpnu.virtual.library.metadata.field.model;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

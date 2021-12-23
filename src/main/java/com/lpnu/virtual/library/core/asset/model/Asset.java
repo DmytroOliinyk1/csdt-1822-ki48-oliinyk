@@ -1,6 +1,5 @@
 package com.lpnu.virtual.library.core.asset.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

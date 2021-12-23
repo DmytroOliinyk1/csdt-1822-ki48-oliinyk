@@ -1,21 +1,16 @@
 package com.lpnu.virtual.library.core.asset.service;
 
 import com.lpnu.virtual.library.core.asset.model.AssetMetadataDto;
-import com.lpnu.virtual.library.core.preset.model.Preset;
 import com.lpnu.virtual.library.core.preset.model.PresetCode;
 import com.lpnu.virtual.library.core.preset.service.PresetService;
 import com.lpnu.virtual.library.core.user.util.UserUtils;
-import com.lpnu.virtual.library.metadata.field.model.Field;
 import com.lpnu.virtual.library.metadata.field.model.FieldDto;
 import com.lpnu.virtual.library.metadata.field.service.FieldManagerService;
-import com.lpnu.virtual.library.util.RightsUtils;
 import com.lpnu.virtual.library.util.ValuesUtils;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

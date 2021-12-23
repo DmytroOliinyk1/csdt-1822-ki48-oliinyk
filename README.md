@@ -88,6 +88,8 @@ Go to localhost:8080/admin/field/config to make sure fields are created
 1.csdt-1822-ki48-oliinyk_v2p1_WW21513
  - user creation pages
 
+2.csdt-1822-ki48-oliinyk_v2p2_WW21513
+ - improvements and removing of deprecated entries
 ### Application guide
 
 Main page:

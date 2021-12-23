@@ -19,17 +19,11 @@ public class FieldUtils {
         return FieldType.LINEAR.equals(field.getType());
     }
 
-    public static Boolean isTabular(Field field) {
-        return FieldType.TABULAR.equals(field.getType());
-    }
 
     public static Boolean isLinear(FieldType type) {
         return FieldType.LINEAR.equals(type);
     }
 
-    public static Boolean isTabular(FieldType type) {
-        return FieldType.TABULAR.equals(type);
-    }
 
     public static FieldDto getField(List<FieldDto> fields, String fieldId) {
         return fields.stream().filter(f -> fieldId.equals(f.getFieldId())).findFirst().orElse(null);

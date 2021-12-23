@@ -35,9 +35,6 @@ public class Pagination {
         return (int) Math.ceil((double) this.getSize() / (double) this.getPageSize());
     }
 
-    public void increasePage() {
-        this.page += 1;
-    }
 
     public Integer getNext() {
         return this.page + 1;

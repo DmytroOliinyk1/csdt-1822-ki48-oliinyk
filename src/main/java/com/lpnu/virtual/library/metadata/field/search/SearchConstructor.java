@@ -3,10 +3,8 @@ package com.lpnu.virtual.library.metadata.field.search;
 import com.lpnu.virtual.library.metadata.field.db.Sqls;
 import com.lpnu.virtual.library.metadata.field.model.Field;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;

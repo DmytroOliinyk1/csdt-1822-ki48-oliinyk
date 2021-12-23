@@ -1,9 +1,5 @@
 package com.lpnu.virtual.library.core.feed.controller;
 
-import com.lpnu.virtual.library.core.asset.model.SearchMode;
-import com.lpnu.virtual.library.core.asset.service.AssetSearchService;
-import com.lpnu.virtual.library.core.feed.model.SavedSearch;
-import com.lpnu.virtual.library.core.feed.repository.FeedRepository;
 import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.user.util.UserUtils;
 import com.lpnu.virtual.library.util.PaginationUtils;

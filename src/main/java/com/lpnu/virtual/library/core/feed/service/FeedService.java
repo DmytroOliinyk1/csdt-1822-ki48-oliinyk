@@ -6,7 +6,6 @@ import com.lpnu.virtual.library.core.asset.model.AssetMetadataDto;
 import com.lpnu.virtual.library.core.asset.model.PagedResult;
 import com.lpnu.virtual.library.core.asset.service.AssetMetadataService;
 import com.lpnu.virtual.library.core.asset.service.AssetPreviewService;
-import com.lpnu.virtual.library.core.asset.service.AssetSearchService;
 import com.lpnu.virtual.library.core.feed.mapper.SavedSearchMapper;
 import com.lpnu.virtual.library.core.feed.model.SavedSearch;
 import com.lpnu.virtual.library.core.feed.repository.FeedRepository;
@@ -19,9 +18,6 @@ import com.lpnu.virtual.library.metadata.field.search.SearchConstructor;
 import com.lpnu.virtual.library.metadata.field.search.SearchUtils;
 import com.lpnu.virtual.library.util.PaginationUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,7 +73,7 @@ public class FeedService {
         assetIds = cacheService.getFromSearchIds(pagination.getSearchId());
         pagination.setSize(assetIds.size());
 
-        return new PagedResult(PaginationUtils.getAssetIdsOnPage(assetIds, pagination, Boolean.TRUE)
+        return new PagedResult(PaginationUtils.getAssetIdsOnPage(assetIds, pagination)
                 .stream()
                 .map(id -> assetPreviewService.getAssetDetails(id, PresetCode.PREVIEW_PAGE))
                 .collect(Collectors.toList()), pagination);

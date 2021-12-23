@@ -12,7 +12,7 @@ public class PaginationUtils {
         return pagination != null ? pagination : new Pagination();
     }
 
-    public static List<Long> getAssetIdsOnPage(List<Long> ids, Pagination pagination, Boolean increasePage) {
+    public static List<Long> getAssetIdsOnPage(List<Long> ids, Pagination pagination) {
         List<Long> result;
         if (pagination.getSize() == 0) {
             result = Collections.emptyList();
@@ -23,10 +23,6 @@ public class PaginationUtils {
             int startOffset = (pageNumber - 1) * pagination.getPageSize();
             result = ids.subList(startOffset,
                     Math.min(startOffset + pagination.getPageSize(), pagination.getSize()));
-        }
-
-        if (increasePage) {
-//            pagination.increasePage();
         }
         return result;
     }

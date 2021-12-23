@@ -1,9 +1,7 @@
 package com.lpnu.virtual.library.metadata.field.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -28,7 +26,7 @@ public class Field {
     private String fieldId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name ="field_type")
+    @Column(name = "field_type")
     private FieldType type;
 
     @Column(name = "table_name")
