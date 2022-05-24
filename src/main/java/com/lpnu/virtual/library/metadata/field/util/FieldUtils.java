@@ -43,8 +43,8 @@ public class FieldUtils {
         return assets.stream()
                 .map(AssetMetadataDto::getFields)
                 .flatMap(Collection::stream)
+                .filter(fd -> fd.getFieldId().equals(fieldId))
                 .map(FieldDto::getDisplayValue)
-                .filter(fieldId::equals)
                 .collect(Collectors.toList());
     }
 }

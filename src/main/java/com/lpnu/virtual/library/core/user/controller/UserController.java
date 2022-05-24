@@ -1,5 +1,6 @@
 package com.lpnu.virtual.library.core.user.controller;
 
+import com.lpnu.virtual.library.common.utils.SessionUtils;
 import com.lpnu.virtual.library.core.user.model.UserDto;
 import com.lpnu.virtual.library.core.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +22,14 @@ public class UserController {
     @GetMapping("/create")
     public String createUser(Model model) {
         model.addAttribute("userDto", new UserDto());
+        SessionUtils.setContextForModel(model);
         return "user-create";
     }
 
     @PostMapping("/create")
     public ModelAndView createUser(@ModelAttribute UserDto userDto, Model model) {
         userService.createUser(userDto);
+        SessionUtils.setContextForModel(model);
         return new ModelAndView("redirect:/login");
     }
 }

@@ -1,5 +1,6 @@
 package com.lpnu.virtual.library.core.admin.controller;
 
+import com.lpnu.virtual.library.common.utils.SessionUtils;
 import com.lpnu.virtual.library.core.admin.model.FieldCreateDto;
 import com.lpnu.virtual.library.core.admin.service.AdminActionService;
 import com.lpnu.virtual.library.metadata.field.service.FieldManagerService;
@@ -21,6 +22,7 @@ public class AdminController {
     @GetMapping("/field/create")
     public String createFieldGet(Model model) {
         model.addAttribute("dto", new FieldCreateDto());
+        SessionUtils.setContextForModel(model);
         return "field-create";
     }
 
@@ -28,12 +30,14 @@ public class AdminController {
     public String createFieldPost(@ModelAttribute FieldCreateDto dto, Model model) {
         String result = service.createField(dto);
         model.addAttribute("msg", result);
+        SessionUtils.setContextForModel(model);
         return "field-create";
     }
 
     @GetMapping("/field/config")
     public String getFieldConfig(Model model) {
         model.addAttribute("config", fieldManagerService.getAllFieldsConfig());
+        SessionUtils.setContextForModel(model);
         return "field-config";
     }
 }

@@ -188,6 +188,10 @@
         "authority": [
           "ADMIN"
         ]
+      },
+      {
+        "id": "FIELD.ASSET.TYPE",
+        "visible": "false"
       }
     ]
   },

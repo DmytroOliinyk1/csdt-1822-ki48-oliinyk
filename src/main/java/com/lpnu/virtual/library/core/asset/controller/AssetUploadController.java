@@ -1,5 +1,6 @@
 package com.lpnu.virtual.library.core.asset.controller;
 
+import com.lpnu.virtual.library.common.utils.SessionUtils;
 import com.lpnu.virtual.library.core.asset.model.AssetMetadataDto;
 import com.lpnu.virtual.library.core.asset.model.AssetUploadContext;
 import com.lpnu.virtual.library.core.asset.service.AssetMetadataService;
@@ -26,6 +27,7 @@ public class AssetUploadController {
     public String uploadAsset(@RequestParam(value = "code", required = false) PresetCode code, Model model) {
         model.addAttribute("metadata",
                 new AssetMetadataDto(assetMetadataService.getFieldsByPreset(code != null ? code : PresetCode.BOOK_UPLOAD)));
+        SessionUtils.setContextForModel(model);
         return PresetCode.AUTHOR_UPLOAD.equals(code) ? "author-create" : "asset-upload";
     }
 
@@ -37,6 +39,7 @@ public class AssetUploadController {
         String result = assetUploadService.syndicateAsset(
                 new AssetUploadContext(metadata.getFields(), file, thumbnail, code));
         model.addAttribute("msg", result);
+        SessionUtils.setContextForModel(model);
         return "index";
     }
 }

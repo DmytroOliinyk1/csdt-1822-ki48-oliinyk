@@ -1,32 +1,90 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Зареєструватись</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Віртуальна бібліотека</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/upload}">
+                    <p>Створити книгу</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAdmin()}">
+                <a th:href="@{/asset/upload?code=AUTHOR_UPLOAD}">
+                    <p>Створити автора</p>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/asset/search/all}">
+                    <p>Всі книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/my}">
+                    <p>Мої книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/subscribed}">
+                    <p>Збережені</p>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/asset/search/apply/filters}">
+                    <p>Шукати книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/feed}">
+                    <p>Рекомендовані</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/login}">
+                    <p>Увійти</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/user/create}">
+                    <p>Зареєструватись</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/do-logout}">
+                    <p>Вийти</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h1> Зареєструватись </h1>
-        </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div align="right">
-                <a th:href="@{/welcome}">
-                    <p>Головна</p>
-                </a>
-            </div>
-
             <form action="#" class="form-horizontal"
                   th:action="@{/user/create}"
                   th:object="${userDto}"
                   method="post">
-                <fieldset>
-					<span class="pull-right">
-						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Зареєструватись">
-						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Скинути"/>
-					</span>
+                <fieldset style="width: 800px;margin: 5 auto">
+                    <h1 style="text-align:center">Зареєструватись</h1>
                     <table class="table">
                         <thead>
                         <tr>
@@ -37,15 +95,15 @@
                         <tr>
                             <td>
                                 <p><b>Ім`я</b></p>
-                                <input  th:field="${userDto.firstName}" required/>
+                                <input th:field="${userDto.firstName}" required/>
                             </td>
                             <td>
                                 <p><b>Прізвище</b></p>
-                                <input  th:field="${userDto.lastName}" required/>
+                                <input th:field="${userDto.lastName}" required/>
                             </td>
                             <td>
                                 <p><b>Логін</b></p>
-                                <input  th:field="${userDto.login}" required/>
+                                <input th:field="${userDto.login}" required/>
                             </td>
                             <td>
                                 <p><b>Пароль</b></p>
@@ -54,6 +112,10 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div style="width: 800px;margin: 0 auto;text-align:right" class="btn-group btn-group-justified">
+                        <input type="submit" id="submitButton" class="btn btn-success" th:value="Зареєструватись" style="width:200px"/>
+                        <input type="reset" id="resetButton" class="btn btn-danger" th:value="Очистити" style="width:200px"/>
+                    </div>
                 </fieldset>
             </form>
         </div>

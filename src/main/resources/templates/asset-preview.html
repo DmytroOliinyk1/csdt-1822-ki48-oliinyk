@@ -1,28 +1,86 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Books</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1> Книга </h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Віртуальна бібліотека</a>
         </div>
-    </div>
+        <ul class="nav navbar-nav">
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/upload}">
+                    <p>Створити книгу</p>
+                </a>
+            </li>
 
-    <div>
-        <a th:href="@{/welcome}">
-            <p>Головна</p>
-        </a>
-    </div>
-    <img th:src="${asset.getThumbnail()}"
-         width="500" height="500" alt="asset thumbnail">
+            <li th:if="${sc.isAdmin()}">
+                <a th:href="@{/asset/upload?code=AUTHOR_UPLOAD}">
+                    <p>Створити автора</p>
+                </a>
+            </li>
 
-    <div class="row">
+            <li>
+                <a th:href="@{/asset/search/all}">
+                    <p>Всі книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/my}">
+                    <p>Мої книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/subscribed}">
+                    <p>Збережені</p>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/asset/search/apply/filters}">
+                    <p>Шукати книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/feed}">
+                    <p>Рекомендовані</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/login}">
+                    <p>Увійти</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/user/create}">
+                    <p>Зареєструватись</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/do-logout}">
+                    <p>Вийти</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row" style="width: 800px;margin: 5 auto">
         <div class="col-md-6">
-            <fieldset>
-                </span>
+            <fieldset style="width: 800px;margin: 5 auto">
+                <h1 style="text-align:center">Книга</h1>
+                <img th:src="${asset.getThumbnail()}"
+                     width="500" height="500" alt="asset thumbnail" style="margin-bottom: 3%;margin-top: 3%;text-align:center">
                 <table class="table">
                     <thead>
                     </thead>
@@ -30,40 +88,37 @@
                     <tr th:each="field, itemStat : ${asset.metadata.fields}">
 
                         <div th:if="${field.isVisibleOnUi()}">
-                            <td><div class="outside-tag">
-                                <th:block th:utext="${field.getTitle()}"></th:block>
-                            </div></td>
+                            <td>
+                                <div class="outside-tag">
+                                    <th:block th:utext="${field.getTitle()}"></th:block>
+                                </div>
+                            </td>
 
-                            <td><div class="outside-tag">
-                                <th:block th:utext="${field.getDisplayValue()}"></th:block>
-                            </div></td>
+                            <td>
+                                <div class="outside-tag">
+                                    <th:block th:utext="${field.getDisplayValue()}"></th:block>
+                                </div>
+                            </td>
                         </div>
                     </tr>
                     </tbody>
                 </table>
             </fieldset>
 
-            <div th:if="${authorized}">
-                <div th:if="${asset.isSubscribed()}">
-                    <div>
-                        <a th:href="@{'/asset/unsubscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?id=' + ${asset.getId()}}">Видалити
-                            зі збережених</a>
-                    </div>
-                </div>
-                <div th:unless="${asset.isSubscribed()}">
-                    <div>
-                        <a th:href="@{'/asset/subscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?id=' + ${asset.getId()}}">Зберегти</a>
-                    </div>
-                </div>
+            <div class="btn-group btn-group-justified" style="width: 800px;margin: 5 auto">
+                <a th:href="@{'/asset/download?id=' + ${asset.getId()}}"
+                   class="btn btn-info">Завантажити</a>
+                <a th:if="${sc.isAuthorized() and asset.isSubscribed()}"
+                   th:href="@{'/asset/unsubscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?id=' + ${asset.getId()}}"
+                   class="btn btn-info">Видалити
+                    зі збережених</a>
+                <a th:if="${sc.isAuthorized() and !asset.isSubscribed()}"
+                   th:href="@{'/asset/subscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?id=' + ${asset.getId()}}"
+                   class="btn btn-info">Зберегти</a>
+                <a th:href="@{'/asset/search/authors?id=' + ${asset.getId()}}"
+                   class="btn btn-info">Перейти до авторів</a>
             </div>
         </div>
-    </div>
-
-    <div>
-        <a th:href="@{'/asset/search/authors?id=' + ${asset.getId()}}">Перейти до авторів</a>
-    </div>
-    <div>
-        <a th:href="@{'/asset/download?id=' + ${asset.getId()}}">Завантажити</a>
     </div>
 </div>
 </body>

@@ -33,6 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/asset/preview**").permitAll()
                 .antMatchers("/asset/download**").permitAll()
                 .antMatchers("/user/create**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/do-logout").permitAll()
                 .antMatchers("/welcome").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()

@@ -1,9 +1,14 @@
 package com.lpnu.virtual.library.core.asset.controller;
 
+import com.lpnu.virtual.library.common.model.Pagination;
+import com.lpnu.virtual.library.common.service.CacheService;
+import com.lpnu.virtual.library.common.utils.SessionUtils;
 import com.lpnu.virtual.library.core.asset.model.AssetMetadataDto;
+import com.lpnu.virtual.library.core.asset.model.PagedResult;
 import com.lpnu.virtual.library.core.asset.model.SearchMode;
 import com.lpnu.virtual.library.core.asset.service.AssetMetadataService;
 import com.lpnu.virtual.library.core.asset.service.AssetSearchService;
+import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.preset.model.PresetCode;
 import com.lpnu.virtual.library.core.user.util.UserUtils;
 import com.lpnu.virtual.library.util.PaginationUtils;
@@ -16,6 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/asset/search")
 @RequiredArgsConstructor
@@ -23,6 +30,8 @@ public class AssetSearchController {
 
     private final AssetSearchService assetSearchService;
     private final AssetMetadataService assetMetadataService;
+    private final FeedService feedService;
+    private final CacheService cacheService;
 
     @GetMapping("/my")
     public String getMyAssets(
@@ -31,7 +40,7 @@ public class AssetSearchController {
             Model model) {
         model.addAttribute("result",
                 assetSearchService.startSearch(PaginationUtils.createPagination(page, searchId), SearchMode.MY_PAGE));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         return "my-asset";
     }
 
@@ -42,7 +51,7 @@ public class AssetSearchController {
             Model model) {
         model.addAttribute("result",
                 assetSearchService.startSearch(PaginationUtils.createPagination(page, searchId), SearchMode.ALL));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         return "all-asset";
     }
 
@@ -53,7 +62,7 @@ public class AssetSearchController {
             Model model) {
         model.addAttribute("result",
                 assetSearchService.startSearch(PaginationUtils.createPagination(page, searchId), SearchMode.SUBSCRIBED));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         return "subscribed";
     }
 
@@ -61,7 +70,8 @@ public class AssetSearchController {
     public String getFilters(Model model) {
         model.addAttribute("metadata",
                 new AssetMetadataDto(assetMetadataService.getFieldsByPreset(PresetCode.FILTERS)));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
+
         return "apply-filters";
     }
 
@@ -71,10 +81,11 @@ public class AssetSearchController {
             @RequestParam(required = false) String searchId,
             @ModelAttribute AssetMetadataDto metadata,
             Model model) {
-        model.addAttribute("result",
-                assetSearchService.startSearch(PaginationUtils.createPagination(page, searchId), SearchMode.FILTERS,
-                        metadata.getFields()));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        PagedResult result = assetSearchService.startSearch(PaginationUtils.createPagination(page, searchId), SearchMode.FILTERS,
+                metadata.getFields());
+        model.addAttribute("result", result);
+        SessionUtils.setContextForModel(model);
+        logSearch(result.getPagination(), cacheService.getFromSearchIds(result.getPagination().getSearchId()));
         return "filtered-asset";
     }
 
@@ -85,7 +96,7 @@ public class AssetSearchController {
             Model model) {
         model.addAttribute("result",
                 assetSearchService.startSearch(PaginationUtils.createPagination(page, searchId)));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         return "filtered-asset";
     }
 
@@ -97,7 +108,13 @@ public class AssetSearchController {
             Model model) {
         model.addAttribute("result",
                 assetSearchService.startAuthorsSearch(id, PaginationUtils.createPagination(page, searchId)));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         return "authors-paged";
+    }
+
+    private void logSearch(Pagination pagination, List<Long> assetIds) {
+        if (UserUtils.isAuthorized() && pagination.getPage() == 1) {
+            feedService.logSearch(assetIds);
+        }
     }
 }
