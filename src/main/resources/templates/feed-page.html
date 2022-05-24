@@ -1,97 +1,146 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Рекомендовані</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Рекомендовані</h1>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Віртуальна бібліотека</a>
         </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-6">
-            <div align="right">
-                <a th:href="@{/welcome}">
-                    <p>Головна</p>
+        <ul class="nav navbar-nav">
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/upload}">
+                    <p>Створити книгу</p>
                 </a>
-            </div>
+            </li>
 
-            <fieldset>
-                </span>
-                <table class="table">
-                    <thead>
-                    </thead>
-                    <tbody>
-                    <tr th:each="asset, itemStat : ${result.assets}">
-                        <a th:href="@{'/asset/preview?id=' + ${asset.getId()}}">
-                            <img th:src="${asset.getThumbnail()}"
-                                 width="100" height="100" alt="asset thumbnail">
-                        </a>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <fieldset>
-                                    </span>
-                                    <table class="table">
-                                        <thead>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="field, itemStat : ${asset.metadata.fields}">
-                                            <div th:if="${field.isVisibleOnUi}">
-                                                <td>
-                                                    <div class="outside-tag">
-                                                        <th:block th:utext="${field.getTitle()}"></th:block>
-                                                    </div>
-                                                </td>
+            <li th:if="${sc.isAdmin()}">
+                <a th:href="@{/asset/upload?code=AUTHOR_UPLOAD}">
+                    <p>Створити автора</p>
+                </a>
+            </li>
 
-                                                <td>
-                                                    <div class="outside-tag">
-                                                        <th:block th:utext="${field.getDisplayValue()}"></th:block>
-                                                    </div>
-                                                </td>
-                                            </div>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </fieldset>
-                            </div>
-                        </div>
+            <li>
+                <a th:href="@{/asset/search/all}">
+                    <p>Всі книги</p>
+                </a>
+            </li>
 
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/my}">
+                    <p>Мої книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/subscribed}">
+                    <p>Збережені</p>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/asset/search/apply/filters}">
+                    <p>Шукати книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/feed}">
+                    <p>Рекомендовані</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/login}">
+                    <p>Увійти</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/user/create}">
+                    <p>Зареєструватись</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/do-logout}">
+                    <p>Вийти</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<h1 style="text-align:center">Рекомендовані</h1>
+<div class="container" style="margin: auto;">
+    <div class="row">
+        <div>
+            <tbody>
+            <tr th:each="asset, itemStat : ${result.assets}">
+                <div style="width: 600px;margin: 0 auto" align="center">
+                    <a th:href="@{'/asset/preview?id=' + ${asset.getId()}}">
+                        <img th:src="${asset.getThumbnail()}"
+                             width="300" height="300" style="margin-bottom: 3%;margin-top: 3%;" alt="обкладинка">
+                    </a>
+
+                    <div class="row" align="center">
                         <div>
-                            <a th:href="@{'/asset/download?id=' + ${asset.getId()}}">Завантажити</a>
-                        </div>
+                            <fieldset>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr th:each="field, itemStat : ${asset.metadata.fields}">
+                                        <div style="width:300px" th:if="${field.isVisibleOnUi}">
+                                            <td>
+                                                <div class="outside-tag">
+                                                    <th:block th:utext="${field.getTitle()}"></th:block>
+                                                </div>
+                                            </td>
 
-                        <div th:if="${authorized}">
-                            <div th:if="${asset.isSubscribed()}">
-                                <div>
-                                    <a th:href="@{'/asset/unsubscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?page=' + ${result.pagination.getPage()} + '%26searchId=' + ${result.pagination.searchId}}">Видалити
-                                        зі збережених</a>
-                                </div>
-                            </div>
-                            <div th:unless="${asset.isSubscribed()}">
-                                <div>
-                                    <a th:href="@{'/asset/subscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?page=' + ${result.pagination.getPage()} + '%26searchId=' + ${result.pagination.searchId}}">Зберегти</a>
-                                </div>
-                            </div>
+                                            <td>
+                                                <div class="outside-tag">
+                                                    <th:block th:utext="${field.getDisplayValue()}"></th:block>
+                                                </div>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
                         </div>
+                    </div>
 
-                    </tr>
-                    </tbody>
-                </table>
-            </fieldset>
+                    <div class="btn-group btn-group-justified">
+                        <a th:href="@{'/asset/download?id=' + ${asset.getId()}}"
+                           class="btn btn-info">Завантажити</a>
+                        <a th:if="${sc.isAuthorized() and asset.isSubscribed()}"
+                           th:href="@{'/asset/unsubscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?page=' + ${result.pagination.getPage()} + '%26searchId=' + ${result.pagination.searchId}}"
+                           class="btn btn-info">Видалити
+                            зі збережених
+                        </a>
+                        <a th:if="${sc.isAuthorized() and !asset.isSubscribed()}"
+                           th:href="@{'/asset/subscribe?id=' + ${asset.getId()} + '&prevUrl=' + ${#httpServletRequest.requestURL} + '?page=' + ${result.pagination.getPage()} + '%26searchId=' + ${result.pagination.searchId}}"
+                           class="btn btn-info">Зберегти
+                        </a>
+                    </div>
+                </div>
+            </tr>
+            </tbody>
         </div>
     </div>
 
-    <div th:unless="${result.pagination.isFirstPage() || result.pagination.hasElements()}">
-        <a th:href="@{'/asset/search/all?page=' + ${result.pagination.getPrev()} + '&searchId=' + ${result.pagination.searchId}}">
+    <div style="width: 600px;margin: 5 auto" class="btn-group btn-group-justified">
+        <a th:unless="${result.pagination.isFirstPage() || result.pagination.hasElements()}"
+           th:href="@{'/asset/feed?page=' + ${result.pagination.getPrev()} + '&searchId=' + ${result.pagination.searchId}}"
+           class="btn btn-info">
             Попередня сторінка
         </a>
-    </div>
-    <div align="right" th:unless="${result.pagination.isLastPage() || result.pagination.hasElements()}">
-        <a th:href="@{'/asset/search/all?page=' + ${result.pagination.getNext()} + '&searchId=' + ${result.pagination.searchId}}">
+
+        <a th:unless="${result.pagination.isLastPage() || result.pagination.hasElements()}"
+           th:href="@{'/asset/feed?page=' + ${result.pagination.getNext()} + '&searchId=' + ${result.pagination.searchId}}"
+           class="btn btn-info">
             Наступна сторінка
         </a>
     </div>

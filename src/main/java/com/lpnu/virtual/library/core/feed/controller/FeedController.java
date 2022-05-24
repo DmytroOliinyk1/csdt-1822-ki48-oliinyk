@@ -1,5 +1,6 @@
 package com.lpnu.virtual.library.core.feed.controller;
 
+import com.lpnu.virtual.library.common.utils.SessionUtils;
 import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.user.util.UserUtils;
 import com.lpnu.virtual.library.util.PaginationUtils;
@@ -23,7 +24,7 @@ public class FeedController {
             Model model) {
         model.addAttribute("result",
                 feedService.startSearch(PaginationUtils.createPagination(page, searchId)));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         return "all-asset";
     }
 }

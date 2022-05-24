@@ -6,5 +6,6 @@ public enum SearchMode {
     FILTERS,
     SUBSCRIBED,
     BOOK_AUTHORS,
-    FEED;
+    FEED,
+    DEFAULT;
 }

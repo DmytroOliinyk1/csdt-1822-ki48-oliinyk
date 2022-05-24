@@ -4,9 +4,7 @@ import com.lpnu.virtual.library.common.model.Pagination;
 import com.lpnu.virtual.library.common.service.CacheService;
 import com.lpnu.virtual.library.core.asset.model.PagedResult;
 import com.lpnu.virtual.library.core.asset.model.SearchMode;
-import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.preset.model.PresetCode;
-import com.lpnu.virtual.library.core.user.util.UserUtils;
 import com.lpnu.virtual.library.metadata.field.model.FieldDto;
 import com.lpnu.virtual.library.metadata.field.model.Fields;
 import com.lpnu.virtual.library.metadata.field.search.MetadataSearchManager;
@@ -25,7 +23,6 @@ public class AssetSearchService {
     private final AssetPreviewService assetPreviewService;
     private final MetadataSearchManager metadataSearchManager;
     private final AssetMetadataService assetMetadataService;
-    private final FeedService feedService;
     private final CacheService cacheService;
 
     public PagedResult startAuthorsSearch(Long id, Pagination pagination) {
@@ -35,7 +32,7 @@ public class AssetSearchService {
     }
 
     public PagedResult startSearch(Pagination pagination) {
-        return startSearch(pagination, null);
+        return startSearch(pagination, SearchMode.DEFAULT);
     }
 
     public PagedResult startSearch(Pagination pagination, SearchMode mode) {
@@ -43,6 +40,10 @@ public class AssetSearchService {
     }
 
     public PagedResult startSearch(Pagination pagination, SearchMode mode, List<FieldDto> fields) {
+        return startSearch(defineSearchConstructor(mode, fields), pagination, null);
+    }
+
+    private SearchConstructor defineSearchConstructor(SearchMode mode, List<FieldDto> fields) {
         SearchConstructor sc;
         if (SearchMode.MY_PAGE.equals(mode)) {
             sc = SearchUtils.buildConstructorForMyPage();
@@ -55,7 +56,7 @@ public class AssetSearchService {
         } else {
             sc = SearchUtils.buildConstructorForDefault();
         }
-        return startSearch(sc, pagination, null);
+        return sc;
     }
 
     public PagedResult startSearch(SearchConstructor sc, Pagination pagination, PresetCode code) {
@@ -68,7 +69,6 @@ public class AssetSearchService {
             String searchId = String.valueOf(System.nanoTime());
             cacheService.putInSearchIds(searchId, assetIds);
             pagination.setSearchId(searchId);
-            logSearch(pagination, assetIds);
         }
         assetIds = cacheService.getFromSearchIds(pagination.getSearchId());
         pagination.setSize(assetIds.size());
@@ -77,12 +77,6 @@ public class AssetSearchService {
                 .stream()
                 .map(id -> assetPreviewService.getAssetDetails(id, code != null ? code :PresetCode.PREVIEW_PAGE))
                 .collect(Collectors.toList()), pagination);
-    }
-
-    private void logSearch(Pagination pagination, List<Long> assetIds) {
-        if (UserUtils.isAuthorized() && pagination.getPage() == 1) {
-            feedService.logSearch(assetIds);
-        }
     }
 
 }

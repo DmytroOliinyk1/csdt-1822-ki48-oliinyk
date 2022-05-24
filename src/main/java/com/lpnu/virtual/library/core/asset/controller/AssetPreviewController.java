@@ -1,5 +1,6 @@
 package com.lpnu.virtual.library.core.asset.controller;
 
+import com.lpnu.virtual.library.common.utils.SessionUtils;
 import com.lpnu.virtual.library.core.asset.service.AssetPreviewService;
 import com.lpnu.virtual.library.core.feed.service.FeedService;
 import com.lpnu.virtual.library.core.preset.model.PresetCode;
@@ -24,7 +25,7 @@ public class AssetPreviewController {
             Model model) {
         model.addAttribute("asset", assetPreviewService.getAssetDetails(id,
                 PresetCode.PREVIEW_AUTHOR.equals(code) ? PresetCode.PREVIEW_AUTHOR : PresetCode.PREVIEW));
-        model.addAttribute("authorized", UserUtils.isAuthorized());
+        SessionUtils.setContextForModel(model);
         if (!PresetCode.PREVIEW_AUTHOR.equals(code) && UserUtils.isAuthorized()) {
             feedService.logSearch(id);
         }

@@ -1,54 +1,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Edit Books</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>Edit Books</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h1> Фільтри </h1>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div align="right">
-        <a th:href="@{/welcome}">
-          <p>Головна</p>
-        </a>
-      </div>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Віртуальна бібліотека</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/upload}">
+                    <p>Створити книгу</p>
+                </a>
+            </li>
 
-      <form action="#" class="form-horizontal"
-            th:action="@{/asset/search/apply/filters}"
-            th:object="${metadata}"
-            method="post">
-        <fieldset>
-					<span class="pull-right">
-						    <input type="submit" id="submitButton" class="btn btn-success" th:value="Пошук">
-						    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Очистити"/>
-					</span>
-          <table class="table">
-            <thead>
-            <tr>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="field, itemStat : ${metadata.fields}">
-              <td><input hidden th:name="|fields[${itemStat.index}].fieldId|" th:value="${field.getFieldId()}"/>
-              </td>
-              <td><input th:name="|fields[${itemStat.index}].title|" th:value="${field.getTitle()}"
-                         readonly
-              /></td>
-              <td><input th:name="|fields[${itemStat.index}].displayValue|"
-                         th:value="${field.getDisplayValue()}"
-                         /></td>
-            </tr>
-            </tbody>
-          </table>
-        </fieldset>
-      </form>
+            <li th:if="${sc.isAdmin()}">
+                <a th:href="@{/asset/upload?code=AUTHOR_UPLOAD}">
+                    <p>Створити автора</p>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/asset/search/all}">
+                    <p>Всі книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/my}">
+                    <p>Мої книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/search/subscribed}">
+                    <p>Збережені</p>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/asset/search/apply/filters}">
+                    <p>Шукати книги</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/asset/feed}">
+                    <p>Рекомендовані</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/login}">
+                    <p>Увійти</p>
+                </a>
+            </li>
+
+            <li th:unless="${sc.isAuthorized()}">
+                <a th:href="@{/user/create}">
+                    <p>Зареєструватись</p>
+                </a>
+            </li>
+
+            <li th:if="${sc.isAuthorized()}">
+                <a th:href="@{/do-logout}">
+                    <p>Вийти</p>
+                </a>
+            </li>
+        </ul>
     </div>
-  </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <form action="#" class="form-horizontal"
+              th:action="@{/asset/search/apply/filters}"
+              th:object="${metadata}"
+              method="post">
+            <fieldset style="width: 800px;margin: 5 auto">
+                <h1 style="text-align:center">Фільтри</h1>
+                <table class="table">
+                    <tbody>
+                    <tr th:each="field, itemStat : ${metadata.fields}">
+                        <td><input hidden th:name="|fields[${itemStat.index}].fieldId|" th:value="${field.getFieldId()}"/>
+                        </td>
+                        <td><input th:name="|fields[${itemStat.index}].title|" th:value="${field.getTitle()}"
+                                   readonly style="outline:0"
+                        /></td>
+                        <td><input th:name="|fields[${itemStat.index}].displayValue|"
+                                   th:value="${field.getDisplayValue()}"
+                        /></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div style="width: 800px;margin: 0 auto;text-align:right" class="btn-group btn-group-justified">
+                    <input type="submit" id="submitButton" class="btn btn-success" th:value="Пошук" style="width:100px"/>
+                    <input type="reset" id="resetButton" class="btn btn-danger" th:value="Очистити" style="width:100px"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
 </div>
 </body>
 </html>
